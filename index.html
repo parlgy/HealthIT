@@ -1,0 +1,94 @@
+<!DOCTYPE html5>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.4.1/chart.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <title>Charts</title>
+</head>
+<body>
+    <div class="container">
+        <canvas id="myChart"></canvas>
+    </div> 
+  
+
+    <!-- <script>
+        function chartIt(){
+        let myChart = document.getElementById('myChart').getContext('2d');
+        const xlabels = [];
+        let massPopChart = new Chart(myChart, {
+            type: 'bar' ,//bar, horizontzl bar, pie,line, doughnut, radar, polar area
+            data: {
+                labels: xlabels,
+                datasets: [{
+                    label: 'Health Facilities',
+                    data: [12,13,14,16],
+                    backgroundColor: [
+                        rgba(255,99,132,0.6),
+                    
+                    ], 
+                    bordeWidth: 4,
+                    borderColor:'#777'
+                }]
+            },
+        }); 
+    }
+    </script> -->
+
+
+    <script>
+        getData();
+        async function getData(){
+            const response = await fetch('Facility.csv');
+            const data = await response.text();
+            // console.log(data);
+
+            var level1 = 0;
+            var level2 = 0;
+            var level3 = 0;
+            var level4 = 0;
+            var level5 = 0;
+            const rows = data.split('\n').slice(1);
+            rows.forEach(elt => {
+                const row = elt.split(',')
+                const Code = row[0];
+                // xlabels.push(Code);
+                const Name = row[1];
+                const Keph_level = row[4];
+                const County = row[12];
+
+
+
+             
+                
+
+                if(County == r){
+                    if(Keph_level == 'Level 1'){
+                        level1 = level1 + 1 ;
+                    }
+                    else if(Keph_level == 'Level 2'){
+                        level2 = level2 + 1 ;
+                    }
+                     else if(Keph_level == 'Level 3'){
+                        level3 = level3 + 1 ;
+                    }
+                     else if(Keph_level == 'Level 4'){
+                        level4 = level4 + 1 ;
+                    }
+                     else{
+                        level5 = level5 + 1 ;
+                    }
+                }
+                
+
+
+            })
+                console.log(level1,level2,level3,level4,level5);
+
+            
+        }
+    </script>
+</body>
+</html>
